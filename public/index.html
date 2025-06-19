@@ -61,63 +61,50 @@
       <p class="text-xl text-cyan-300 mt-2">Empowering IT. Enabling Trust.</p>
     </header>
 
-    <!-- Services Section -->
-    <section class="py-16 px-6 md:px-20 bg-black text-center" id="services">
-      <h2 class="text-4xl font-bold mb-12">🔧 Our Services</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="glass p-6 service-card" data-sr>
-          <h3 class="text-xl font-bold mb-2">Refurbished & New IT Hardware</h3>
-          <p>High-quality laptops, CPUs, network devices, and servers tested for performance and reliability.</p>
-        </div>
-        <div class="glass p-6 service-card" data-sr>
-          <h3 class="text-xl font-bold mb-2">MikroTik Network Solutions</h3>
-          <p>Certified deployments for ISPs & enterprises: routing, VPN, load balancing, failover, bandwidth shaping.</p>
-        </div>
-        <div class="glass p-6 service-card" data-sr>
-          <h3 class="text-xl font-bold mb-2">Enterprise Network Design</h3>
-          <p>Custom LAN/WAN architecture for startups, SMBs, BFSI, and multi-branch connectivity.</p>
-        </div>
-        <div class="glass p-6 service-card" data-sr>
-          <h3 class="text-xl font-bold mb-2">Cybersecurity & Compliance</h3>
-          <p>Firewall configuration, endpoint protection, audits, and secure VPNs for remote access.</p>
-        </div>
-        <div class="glass p-6 service-card" data-sr>
-          <h3 class="text-xl font-bold mb-2">Cloud & Hybrid Environments</h3>
-          <p>Cloud migration, hybrid cloud, disaster recovery, and cloud-native deployments (AWS, Azure, GCP).</p>
-        </div>
-        <div class="glass p-6 service-card" data-sr>
-          <h3 class="text-xl font-bold mb-2">Web & App Development</h3>
-          <p>Modern, responsive, and secure websites and dashboards — optimized for speed and SEO.</p>
-        </div>
+    <!-- Contact Section -->
+    <section class="py-20 px-6 md:px-20 bg-black text-white" id="contact">
+      <h2 class="text-4xl font-bold mb-8 text-center">📩 Contact Us</h2>
+      <form class="max-w-3xl mx-auto grid grid-cols-1 gap-6 glass p-6 rounded-xl">
+        <input type="text" placeholder="Your Name" class="p-3 rounded bg-gray-900 border border-gray-700 placeholder-gray-400" required />
+        <input type="email" placeholder="Your Email" class="p-3 rounded bg-gray-900 border border-gray-700 placeholder-gray-400" required />
+        <textarea rows="5" placeholder="Your Message" class="p-3 rounded bg-gray-900 border border-gray-700 placeholder-gray-400" required></textarea>
+        <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-full transition">Send Message</button>
+      </form>
+      <div class="mt-12 max-w-5xl mx-auto">
+        <iframe class="w-full h-80 rounded-xl" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.8392971743!2d77.06889996086073!3d28.527280343622598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce31be3b7d29d%3A0x427d333c7ed74d2d!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1718191112345" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="py-20 bg-black text-white px-6 md:px-20" id="faq">
-      <h2 class="text-4xl font-bold mb-8 text-center">🔍 Frequently Asked Questions</h2>
-      <div class="space-y-6 max-w-4xl mx-auto">
-        <details class="glass p-4" data-sr>
-          <summary class="font-semibold">What services does AstraNetix provide?</summary>
-          <p class="mt-2">We provide refurbished/new hardware, MikroTik deployments, network setup, cloud solutions, cybersecurity, and web development.</p>
-        </details>
-        <details class="glass p-4" data-sr>
-          <summary class="font-semibold">Is refurbished hardware reliable?</summary>
-          <p class="mt-2">Yes. We ensure all refurbished products are performance-tested, certified, and guaranteed for reliability and longevity.</p>
-        </details>
-        <details class="glass p-4" data-sr>
-          <summary class="font-semibold">Do you offer post-installation support?</summary>
-          <p class="mt-2">Yes. We provide monitoring, maintenance, and SLA-based ongoing support services.</p>
-        </details>
-        <details class="glass p-4" data-sr>
-          <summary class="font-semibold">Do you help with data center setup?</summary>
-          <p class="mt-2">Yes. We handle full-stack data center planning — cabling, power, cooling, failover, and topology design.</p>
-        </details>
-        <details class="glass p-4" data-sr>
-          <summary class="font-semibold">How can I get a quote?</summary>
-          <p class="mt-2">Just reach out via phone, email, or our website contact form with your requirements.</p>
-        </details>
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white text-center py-10 mt-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+          <div>
+            <h4 class="text-xl font-bold mb-4">AstraNetix</h4>
+            <p class="text-gray-400">Empowering IT. Enabling Trust.</p>
+            <p class="text-gray-500 mt-2">© 2025 AstraNetix Solution Pvt. Ltd.</p>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="#about" class="hover:text-cyan-400">About</a></li>
+              <li><a href="#services" class="hover:text-cyan-400">Services</a></li>
+              <li><a href="#faq" class="hover:text-cyan-400">FAQs</a></li>
+              <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold mb-4">Connect With Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="hover:text-cyan-400">LinkedIn</a>
+              <a href="#" class="hover:text-cyan-400">Twitter</a>
+              <a href="mailto:xxxxx@gmail.com" class="hover:text-cyan-400">Email</a>
+            </div>
+            <p class="mt-4">📞 +91-0000000000</p>
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
 
     <script>
       ScrollReveal().reveal('[data-sr]', { duration: 1000, distance: '50px', origin: 'bottom', easing: 'ease-in-out' });
