@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AstraNetix Admin Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #111; color: #fff; }
+    h1 { color: cyan; }
+    .entry { background: #222; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>📥 Contact Submissions</h1>
+  <div id="entries">Loading...</div>
+
+  <script>
+    fetch('/api/contact/all')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('entries');
+        container.innerHTML = '';
+        data.forEach(entry => {
+          container.innerHTML += `
+            <div class="entry">
+              <p><strong>Name:</strong> ${entry.name}</p>
+              <p><strong>Email:</strong> ${entry.email}</p>
+              <p><strong>Message:</strong> ${entry.message}</p>
+              <p><em>${new Date(entry.submittedAt).toLocaleString()}</em></p>
+            </div>
+          `;
+        });
+      });
+  </script>
+</body>
+</html>
