@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
+    <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
     <style>
       #bg-video {
         position: fixed;
@@ -18,37 +20,61 @@
         z-index: -1;
         opacity: 0.5;
       }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .glow:hover {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+      }
     </style>
   </head>
-  <body class="text-white bg-black font-sans">
+  <body class="text-white bg-black font-sans scroll-smooth">
     <!-- Background Video -->
     <video autoplay muted loop id="bg-video">
       <source src="assets/video.mp4" type="video/mp4" />
     </video>
 
     <!-- Logo & Hero -->
-    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
-      <img src="assets/logo.jpeg" alt="TriNexa Logo" class="h-20 mb-6 animate-bounce">
+    <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-70 text-white py-3 px-6 flex justify-between items-center z-50">
+      <div class="flex items-center space-x-3">
+        <img src="assets/logo.png" alt="TriNexa Logo" class="h-10">
+        <span class="font-bold text-xl">TriNexa</span>
+      </div>
+      <ul class="flex space-x-6">
+        <li><a href="#services" class="hover:text-cyan-400">Services</a></li>
+        <li><a href="#about" class="hover:text-cyan-400">About</a></li>
+        <li><a href="#faq" class="hover:text-cyan-400">FAQ</a></li>
+        <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
+      <img src="assets/logo.png" alt="TriNexa Logo" class="h-20 mb-6 animate-bounce">
       <h1 class="text-5xl md:text-6xl font-bold mb-4 animate-pulse">TriNexa Systems</h1>
       <p class="text-xl md:text-2xl max-w-2xl">Empowering the future of networking, cloud, and cybersecurity infrastructure across industries</p>
     </section>
 
     <!-- Services -->
-    <section class="py-16 bg-gray-900 bg-opacity-80">
+    <section id="services" class="py-16 bg-gray-900 bg-opacity-80">
       <div class="text-center mb-10">
         <h2 class="text-4xl font-bold">Our Services</h2>
         <p class="text-lg text-gray-300">Built for ISPs, healthcare, SMBs, and data centers</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-20">
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition">
+        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
           <h3 class="text-xl font-semibold mb-2">Networking</h3>
           <p>Switches, routers, SD-WAN, structured cabling & enterprise LAN.</p>
         </div>
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition">
+        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
           <h3 class="text-xl font-semibold mb-2">Security</h3>
           <p>Firewalls, endpoint security, intrusion prevention, antivirus & compliance.</p>
         </div>
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition">
+        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
           <h3 class="text-xl font-semibold mb-2">Cloud & Data Center</h3>
           <p>Private & hybrid cloud, backup, storage, server infrastructure, DR & virtualization.</p>
         </div>
@@ -56,7 +82,7 @@
     </section>
 
     <!-- About Us -->
-    <section class="py-16 px-6 md:px-20 bg-black bg-opacity-80">
+    <section id="about" class="py-16 px-6 md:px-20 bg-black bg-opacity-80">
       <h2 class="text-4xl font-bold text-center mb-6">Who We Are</h2>
       <p class="text-lg text-gray-300 max-w-4xl mx-auto">
         At TriNexa Systems, we are more than vendors — we are architects of intelligent IT infrastructure. With deep expertise in networking, security, and cloud, our mission is to deliver futuristic solutions that ensure uptime, scalability, and security for the modern enterprise.
@@ -74,14 +100,14 @@
     </section>
 
     <!-- FAQ -->
-    <section class="py-16 px-6 md:px-20 bg-black bg-opacity-90">
+    <section id="faq" class="py-16 px-6 md:px-20 bg-black bg-opacity-90">
       <h2 class="text-3xl font-bold text-center mb-8">FAQs</h2>
       <div class="space-y-6 max-w-3xl mx-auto">
-        <details class="bg-gray-800 p-4 rounded">
+        <details class="glass p-4 rounded">
           <summary class="font-semibold cursor-pointer">Do you provide on-site setup?</summary>
           <p class="mt-2 text-gray-300">Yes, we provide on-site and remote setup, consultation, and implementation.</p>
         </details>
-        <details class="bg-gray-800 p-4 rounded">
+        <details class="glass p-4 rounded">
           <summary class="font-semibold cursor-pointer">Which industries do you serve?</summary>
           <p class="mt-2 text-gray-300">We serve ISPs, banks, healthcare, educational institutions, and SMBs across India.</p>
         </details>
@@ -89,14 +115,23 @@
     </section>
 
     <!-- Contact -->
-    <section class="py-16 px-6 md:px-20 bg-gray-900 bg-opacity-90">
+    <section id="contact" class="py-16 px-6 md:px-20 bg-gray-900 bg-opacity-90">
       <h2 class="text-3xl font-bold text-center mb-6">Get In Touch</h2>
       <div class="text-center">
-        <p> Name: Vaishvi Amin</p>
         <p>📞 Phone: 0000000</p>
         <p>📧 Email: xxxxx@gmail.com</p>
         <p>🔗 <a href="#" class="text-blue-400">LinkedIn</a> | <a href="#" class="text-blue-400">Twitter</a></p>
       </div>
     </section>
+
+    <script>
+      ScrollReveal().reveal('section', {
+        delay: 200,
+        distance: '50px',
+        duration: 800,
+        origin: 'bottom',
+        reset: true
+      });
+    </script>
   </body>
 </html>
