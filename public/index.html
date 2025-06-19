@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -121,6 +122,29 @@
       </div>
     </section>
 
+<!-- Section 1: Animated Globe Illustration -->
+<section class="py-20 px-6 md:px-20 bg-black text-white">
+  <div class="text-center">
+    <h2 class="text-4xl font-bold mb-6">🌍 Global Reach, Local Expertise</h2>
+    <div id="lottie-globe" class="mx-auto h-64 w-64"></div>
+    <p class="max-w-3xl mx-auto mt-6 text-lg">
+      AstraNetix leverages global technology standards while tailoring solutions to India's unique IT landscape. From metro cities to remote towns, we bridge the digital divide.
+    </p>
+  </div>
+</section>
+
+<!-- Section 2: Animated Server Infrastructure Illustration -->
+<section class="py-20 px-6 md:px-20 bg-gray-900 text-white">
+  <div class="text-center">
+    <h2 class="text-4xl font-bold mb-6">🖥️ Backbone of Your Business</h2>
+    <div id="lottie-server" class="mx-auto h-64 w-64"></div>
+    <p class="max-w-3xl mx-auto mt-6 text-lg">
+      We don’t just provide infrastructure—we build intelligent ecosystems that support high availability, security, and real-time insights. Scalable. Predictable. Secure.
+    </p>
+  </div>
+</section>
+
+
          <!-- FAQ Section -->
     <section class="py-20 px-6 md:px-20 bg-gray-900 text-white" id="faq">
       <h2 class="text-4xl font-bold mb-10 text-center">❓ Frequently Asked Questions</h2>
@@ -202,5 +226,26 @@
         autoplay: { delay: 5000 },
       });
     </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+<script>
+  // Lottie Animation - Globe
+  lottie.loadAnimation({
+    container: document.getElementById('lottie-globe'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://assets5.lottiefiles.com/packages/lf20_zrz5gk3g.json'
+  });
+
+  // Lottie Animation - Server
+  lottie.loadAnimation({
+    container: document.getElementById('lottie-server'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://assets4.lottiefiles.com/packages/lf20_jtbfg2nb.json'
+  });
+</script>
   </body>
 </html>
+
