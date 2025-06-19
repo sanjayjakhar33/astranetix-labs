@@ -81,6 +81,53 @@
       </div>
     </section>
 
+    <!-- Testimonials -->
+    <section class="py-16 px-6 md:px-20 bg-gray-800 bg-opacity-90">
+      <h2 class="text-3xl font-bold text-center mb-10">What Our Clients Say</h2>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide text-center text-white bg-gray-700 p-6 rounded-xl shadow-md">
+            <p class="italic">“TriNexa helped us transform our outdated infrastructure. Highly professional team!”</p>
+            <p class="mt-4 font-semibold">— Ankit, ISP Director</p>
+          </div>
+          <div class="swiper-slide text-center text-white bg-gray-700 p-6 rounded-xl shadow-md">
+            <p class="italic">“Reliable partner for our hospital networking and data center needs.”</p>
+            <p class="mt-4 font-semibold">— Dr. Mehta, Healthcare CTO</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      new Swiper('.swiper-container', {
+        loop: true,
+        autoplay: { delay: 5000 },
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+      });
+    </script>
+
+    <!-- Device Illustrations -->
+    <section class="py-16 px-6 md:px-20 bg-black text-center">
+      <h2 class="text-3xl font-bold mb-10">Our Core Technologies</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png" alt="Server" class="mx-auto h-24 animate-bounce">
+          <h3 class="mt-4 text-xl font-semibold">Data Center Servers</h3>
+        </div>
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/2395/2395794.png" alt="Switch" class="mx-auto h-24 animate-bounce">
+          <h3 class="mt-4 text-xl font-semibold">High-Speed Switches</h3>
+        </div>
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/3621/3621354.png" alt="Firewall" class="mx-auto h-24 animate-bounce">
+          <h3 class="mt-4 text-xl font-semibold">Enterprise Firewalls</h3>
+        </div>
+      </div>
+    </section>
+
     <!-- About Us -->
     <section id="about" class="py-16 px-6 md:px-20 bg-black bg-opacity-80">
       <h2 class="text-4xl font-bold text-center mb-6">Who We Are</h2>
@@ -133,5 +180,24 @@
         reset: true
       });
     </script>
+      <!-- WhatsApp Button -->
+    <a href="https://wa.me/0000000" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg z-50">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.24 7.76a6 6 0 11-8.49 8.49L3 21l4.75-4.75a6 6 0 018.49-8.49z" />
+      </svg>
+    </a>
+
+    <!-- Theme Toggle -->
+    <button onclick="toggleTheme()" class="fixed bottom-6 left-6 bg-gray-800 text-white px-4 py-2 rounded-lg z-50 hover:bg-gray-600">Toggle Theme</button>
+
+    <script>
+      function toggleTheme() {
+        const html = document.documentElement;
+        html.classList.toggle('dark');
+        document.body.classList.toggle('bg-white');
+        document.body.classList.toggle('text-black');
+      }
+    </script>
+
   </body>
 </html>
