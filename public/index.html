@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AstraNetix Solution Pvt. Ltd.</title>
+    <title>TriNexa Systems</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
     <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
       #bg-video {
         position: fixed;
@@ -35,59 +37,130 @@
     <video autoplay muted loop id="bg-video">
       <source src="assets/video.mp4" type="video/mp4" />
     </video>
-    <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-70 text-white py-3 px-6 flex justify-between items-center z-50">
-      <div class="flex items-center space-x-3">
-        <img src="assets/logo.png" alt="AstraNetix Logo" class="h-10">
-        <span class="font-bold text-xl">AstraNetix</span>
-      </div>
-      <ul class="flex space-x-6">
-        <li><a href="#services" class="hover:text-cyan-400">Services</a></li>
-        <li><a href="#about" class="hover:text-cyan-400">About</a></li>
-        <li><a href="#faq" class="hover:text-cyan-400">FAQ</a></li>
-        <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
-      </ul>
-    </nav>
 
-    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
-      <img src="assets/logo.png" alt="AstraNetix Logo" class="h-20 mb-6 animate-bounce">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 animate-pulse">AstraNetix Solution Pvt. Ltd.</h1>
-      <p class="text-xl md:text-2xl max-w-2xl">Empowering IT. Enabling Trust.</p>
-    </section>
+    <!-- Dark/Light Theme Toggle -->
+    <div class="fixed bottom-5 left-5 z-50">
+      <button onclick="document.body.classList.toggle('bg-black'); document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-white'); document.body.classList.toggle('text-black');" class="bg-gray-800 text-white p-2 rounded-full shadow hover:bg-gray-700">
+        🌓
+      </button>
+    </div>
 
-    <section id="services" class="py-16 bg-gray-900 bg-opacity-80">
-      <div class="text-center mb-10">
-        <h2 class="text-4xl font-bold">What We Do Best</h2>
-        <p class="text-lg text-gray-300">From refurbished hardware to full-stack IT solutions</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-20">
-        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
-          <h3 class="text-xl font-semibold mb-2">Refurbished & New IT Hardware</h3>
-          <p>Maximize ROI with performance-tested laptops, servers, network devices, and more.</p>
-        </div>
-        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
-          <h3 class="text-xl font-semibold mb-2">MikroTik & Enterprise Networking</h3>
-          <p>Deploy, scale, and manage robust networks for ISPs and businesses of all sizes.</p>
-        </div>
-        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
-          <h3 class="text-xl font-semibold mb-2">Cybersecurity & Firewalls</h3>
-          <p>Protect your infrastructure with VPNs, firewalls, and endpoint protection.</p>
-        </div>
-        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
-          <h3 class="text-xl font-semibold mb-2">Cloud Migration & Hybrid Solutions</h3>
-          <p>Seamless cloud-native deployment, backup, DR, and hybrid infra setup.</p>
-        </div>
-        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
-          <h3 class="text-xl font-semibold mb-2">Virtualization & Server Provisioning</h3>
-          <p>Provision scalable backend systems and deploy resilient virtual machines.</p>
-        </div>
-        <div class="glass p-6 rounded-xl shadow-lg glow transition transform hover:scale-105" data-tilt>
-          <h3 class="text-xl font-semibold mb-2">Web & App Development</h3>
-          <p>Modern, secure websites and web apps tailored to your business goals.</p>
-        </div>
+    <!-- WhatsApp Chat Button -->
+    <a href="https://wa.me/910000000000" target="_blank" class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg z-50">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.24 11.51a4.25 4.25 0 00-6-6L9 5.76 5.76 9a4.25 4.25 0 006 6l1.41-1.41a1 1 0 011.41 0l1.66 1.66a1 1 0 010 1.41L12 21.24a9 9 0 109-9l-4.76-4.76a1 1 0 01-1.41 0z" />
+      </svg>
+    </a>
+
+    <header class="text-center py-10">
+      <img src="assets/logo.png" alt="TriNexa Systems Logo" class="mx-auto h-20" />
+      <h1 class="text-5xl font-bold mt-4">TriNexa Systems</h1>
+      <p class="text-xl text-cyan-300 mt-2">Empowering IT. Enabling Trust.</p>
+    </header>
+
+    <section class="py-16 px-6 md:px-20">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">About Us</h2>
+        <p class="max-w-4xl mx-auto text-lg text-gray-300">
+          At TriNexa Systems, we don’t just build IT systems — we engineer smart, secure, and scalable ecosystems that power businesses forward. Whether you’re a startup or an enterprise, we are your trusted technology partner.
+        </p>
       </div>
     </section>
 
-    <!-- Remaining sections unchanged except About (already edited) and FAQ -->
-    <!-- Let me know if you'd like About section tone to be more bold, energetic, or marketing-style -->
+    <section class="py-16 px-6 md:px-20 bg-gray-900">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Services We Offer</h2>
+        <p class="max-w-4xl mx-auto text-lg text-gray-400">Our expert solutions span across networking, infrastructure, and security domains.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">Enterprise Networking</h3>
+          <p>Design and deployment of LAN, WAN, VPN, and SD-WAN solutions tailored for scalable enterprise performance.</p>
+        </div>
+        <div class="glass p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">Cybersecurity</h3>
+          <p>Firewall, antivirus, IPS/IDS, endpoint security, and compliance-driven protection against digital threats.</p>
+        </div>
+        <div class="glass p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">Cloud & Virtualization</h3>
+          <p>Deploy hybrid/multi-cloud environments with virtualized servers and containers for performance and agility.</p>
+        </div>
+        <div class="glass p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">Data Center Solutions</h3>
+          <p>Setup of server rooms and full-scale data centers with storage, backup, disaster recovery and monitoring.</p>
+        </div>
+        <div class="glass p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">Refurbished & New Hardware</h3>
+          <p>Supply of laptops, routers, switches, firewalls, storage & server solutions — tested and warrantied.</p>
+        </div>
+        <div class="glass p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">MikroTik Solutions</h3>
+          <p>Planning and deployment of MikroTik-based networks for ISPs and SMEs across India.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="py-16 px-6 md:px-20 bg-black bg-opacity-95 text-white">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">What Our Clients Say</h2>
+        <p class="text-lg text-gray-300">Voices from our satisfied clients across industries</p>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <div class="swiper testimonialSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide bg-gray-800 p-6 rounded-xl text-center">
+              <p class="text-xl italic mb-4">“TriNexa turned our chaotic IT setup into a secure, high-performing ecosystem. We trust them like our in-house tech team.”</p>
+              <h4 class="text-lg font-semibold">– IT Head, FinSecure Bank</h4>
+            </div>
+            <div class="swiper-slide bg-gray-800 p-6 rounded-xl text-center">
+              <p class="text-xl italic mb-4">“Their MikroTik knowledge and network optimization saved us massive costs. Highly recommend for ISPs!”</p>
+              <h4 class="text-lg font-semibold">– Director, Rural ISP Solutions</h4>
+            </div>
+            <div class="swiper-slide bg-gray-800 p-6 rounded-xl text-center">
+              <p class="text-xl italic mb-4">“From planning our data center to implementing cybersecurity – the TriNexa team delivered top-tier professionalism.”</p>
+              <h4 class="text-lg font-semibold">– CTO, MedixTech Healthcare</h4>
+            </div>
+          </div>
+          <div class="swiper-pagination mt-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 px-6 md:px-20 bg-black text-white">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Contact Us</h2>
+        <p class="text-lg text-gray-300">We’re here to answer your questions and help you get started.</p>
+      </div>
+      <div class="max-w-3xl mx-auto">
+        <form class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input type="text" placeholder="Your Name" class="p-3 rounded bg-gray-800 text-white w-full" />
+            <input type="email" placeholder="Your Email" class="p-3 rounded bg-gray-800 text-white w-full" />
+          </div>
+          <input type="text" placeholder="Subject" class="p-3 rounded bg-gray-800 text-white w-full" />
+          <textarea rows="5" placeholder="Your Message" class="p-3 rounded bg-gray-800 text-white w-full"></textarea>
+          <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded">Send Message</button>
+        </form>
+        <p class="text-center mt-8">📞 +91 00000 00000 | ✉️ xxxxx@gmail.com</p>
+        <div class="flex justify-center space-x-6 mt-4">
+          <a href="#" class="text-cyan-400 hover:text-white">LinkedIn</a>
+          <a href="#" class="text-cyan-400 hover:text-white">Twitter</a>
+          <a href="#" class="text-green-400 hover:text-white">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const swiper = new Swiper('.testimonialSwiper', {
+        loop: true,
+        autoplay: {
+          delay: 5000,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+      });
+    </script>
   </body>
 </html>
