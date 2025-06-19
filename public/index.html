@@ -12,9 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-      html {
-        scroll-behavior: smooth;
-      }
       #bg-video {
         position: fixed;
         top: 0;
@@ -34,30 +31,17 @@
       .glow:hover {
         box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
       }
-      nav a.active {
-        color: #06b6d4;
-        font-weight: bold;
+      .service-card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
       }
     </style>
   </head>
-  <body class="text-white bg-black font-sans">
+  <body class="text-white bg-black font-sans scroll-smooth">
     <video autoplay muted loop id="bg-video">
       <source src="assets/video.mp4" type="video/mp4" />
     </video>
-
-    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur bg-black/60 border-b border-cyan-500 text-white">
-      <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        <div class="font-bold text-lg">AstraNetix</div>
-        <ul class="flex space-x-6 text-sm">
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#services" class="nav-link">Services</a></li>
-          <li><a href="#faq" class="nav-link">FAQ</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="pt-20"></div>
 
     <div class="fixed bottom-5 left-5 z-50">
       <button onclick="document.body.classList.toggle('bg-black'); document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-white'); document.body.classList.toggle('text-black');" class="bg-gray-800 text-white p-2 rounded-full shadow hover:bg-gray-700">
@@ -72,121 +56,80 @@
     </a>
 
     <header class="text-center py-10">
-      <img src="assets/logo.png" alt="AstraNetix Logo" class="mx-auto h-20" />
-      <h1 class="text-5xl font-bold mt-4">AstraNetix Solution Pvt. Ltd.</h1>
+      <img src="assets/logo.png" alt="AstraNetix Logo" class="mx-auto h-20 animate-pulse" />
+      <h1 class="text-5xl font-extrabold mt-4 bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-500 text-transparent bg-clip-text animate-fade-in">AstraNetix Solution Pvt. Ltd.</h1>
       <p class="text-xl text-cyan-300 mt-2">Empowering IT. Enabling Trust.</p>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 px-6 md:px-20 bg-black">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-4">🚀 About Us</h2>
-        <p class="max-w-4xl mx-auto text-lg text-gray-300">
-          At <strong>AstraNetix Solution Pvt. Ltd.</strong>, we don’t just build IT systems — we engineer smart, secure, and scalable ecosystems that power businesses forward. Founded to simplify complex technology, we are a next-gen infrastructure and cybersecurity partner for industries across India.
-        </p>
-      </div>
-      <!-- About content omitted for brevity -->
-    </section>
-
     <!-- Services Section -->
-    <section id="services" class="py-16 px-6 md:px-20 bg-gray-900">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-4">🔧 Our Services</h2>
-        <p class="max-w-3xl mx-auto text-lg text-gray-300">We deliver tailored IT infrastructure, networking, and security solutions designed to meet modern business needs.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-100">
-        <div class="glass p-6">
-          <h3 class="text-xl font-bold mb-2">🔌 Hardware Supply</h3>
-          <p>Refurbished & new laptops, CPUs, switches, routers, firewalls & more — thoroughly tested, ready to deploy.</p>
+    <section class="py-16 px-6 md:px-20 bg-black text-center" id="services">
+      <h2 class="text-4xl font-bold mb-12">🔧 Our Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass p-6 service-card" data-sr>
+          <h3 class="text-xl font-bold mb-2">Refurbished & New IT Hardware</h3>
+          <p>High-quality laptops, CPUs, network devices, and servers tested for performance and reliability.</p>
         </div>
-        <div class="glass p-6">
-          <h3 class="text-xl font-bold mb-2">🌐 Network Design</h3>
-          <p>Scalable LAN/WAN, ISP infrastructure, MikroTik configuration, VPNs, and failover systems.</p>
+        <div class="glass p-6 service-card" data-sr>
+          <h3 class="text-xl font-bold mb-2">MikroTik Network Solutions</h3>
+          <p>Certified deployments for ISPs & enterprises: routing, VPN, load balancing, failover, bandwidth shaping.</p>
         </div>
-        <div class="glass p-6">
-          <h3 class="text-xl font-bold mb-2">☁️ Cloud & Virtualization</h3>
-          <p>Hybrid setups, cloud migration (AWS/Azure), disaster recovery, and container-based infrastructure.</p>
+        <div class="glass p-6 service-card" data-sr>
+          <h3 class="text-xl font-bold mb-2">Enterprise Network Design</h3>
+          <p>Custom LAN/WAN architecture for startups, SMBs, BFSI, and multi-branch connectivity.</p>
         </div>
-        <div class="glass p-6">
-          <h3 class="text-xl font-bold mb-2">🔐 Cybersecurity</h3>
-          <p>Firewalls, endpoint protection, compliance audits, penetration testing, and VPN tunneling.</p>
+        <div class="glass p-6 service-card" data-sr>
+          <h3 class="text-xl font-bold mb-2">Cybersecurity & Compliance</h3>
+          <p>Firewall configuration, endpoint protection, audits, and secure VPNs for remote access.</p>
         </div>
-        <div class="glass p-6">
-          <h3 class="text-xl font-bold mb-2">🏢 Data Center Setup</h3>
-          <p>Full-stack architecture, cabling, rack design, server deployment & monitoring solutions.</p>
+        <div class="glass p-6 service-card" data-sr>
+          <h3 class="text-xl font-bold mb-2">Cloud & Hybrid Environments</h3>
+          <p>Cloud migration, hybrid cloud, disaster recovery, and cloud-native deployments (AWS, Azure, GCP).</p>
         </div>
-        <div class="glass p-6">
-          <h3 class="text-xl font-bold mb-2">💻 Web Development</h3>
-          <p>Custom websites & portals with security, speed, and responsive design at the core.</p>
+        <div class="glass p-6 service-card" data-sr>
+          <h3 class="text-xl font-bold mb-2">Web & App Development</h3>
+          <p>Modern, responsive, and secure websites and dashboards — optimized for speed and SEO.</p>
         </div>
       </div>
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-16 px-6 md:px-20 bg-black">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-4">🔍 Frequently Asked Questions</h2>
-      </div>
-      <div class="space-y-6 max-w-4xl mx-auto text-gray-300">
-        <details class="glass p-4">
-          <summary class="font-bold cursor-pointer">Do you supply refurbished hardware? Is it reliable?</summary>
-          <p class="mt-2">Yes, every unit is tested & validated for performance, backed with quality assurance and support.</p>
+    <section class="py-20 bg-black text-white px-6 md:px-20" id="faq">
+      <h2 class="text-4xl font-bold mb-8 text-center">🔍 Frequently Asked Questions</h2>
+      <div class="space-y-6 max-w-4xl mx-auto">
+        <details class="glass p-4" data-sr>
+          <summary class="font-semibold">What services does AstraNetix provide?</summary>
+          <p class="mt-2">We provide refurbished/new hardware, MikroTik deployments, network setup, cloud solutions, cybersecurity, and web development.</p>
         </details>
-        <details class="glass p-4">
-          <summary class="font-bold cursor-pointer">Can you design network infrastructure for my company?</summary>
-          <p class="mt-2">Yes. We handle complete design, implementation & maintenance tailored to your operations.</p>
+        <details class="glass p-4" data-sr>
+          <summary class="font-semibold">Is refurbished hardware reliable?</summary>
+          <p class="mt-2">Yes. We ensure all refurbished products are performance-tested, certified, and guaranteed for reliability and longevity.</p>
         </details>
-        <details class="glass p-4">
-          <summary class="font-bold cursor-pointer">Do you offer cloud migration?</summary>
-          <p class="mt-2">Absolutely. Our team specializes in AWS, Azure, GCP, and hybrid deployments with minimal downtime.</p>
+        <details class="glass p-4" data-sr>
+          <summary class="font-semibold">Do you offer post-installation support?</summary>
+          <p class="mt-2">Yes. We provide monitoring, maintenance, and SLA-based ongoing support services.</p>
         </details>
-        <details class="glass p-4">
-          <summary class="font-bold cursor-pointer">Is ongoing support available?</summary>
-          <p class="mt-2">Yes. We provide remote/on-site support with SLA-backed service options.</p>
+        <details class="glass p-4" data-sr>
+          <summary class="font-semibold">Do you help with data center setup?</summary>
+          <p class="mt-2">Yes. We handle full-stack data center planning — cabling, power, cooling, failover, and topology design.</p>
         </details>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 px-6 md:px-20 bg-gray-900">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-4">📬 Contact Us</h2>
-        <p class="max-w-2xl mx-auto text-lg text-gray-300">Let’s build your next big thing together. Reach out for consultations, quotes, or partnerships.</p>
-      </div>
-      <div class="max-w-xl mx-auto bg-black/30 p-6 rounded-xl glass">
-        <form>
-          <input type="text" placeholder="Your Name" class="w-full p-3 mb-4 rounded bg-gray-800 text-white" />
-          <input type="email" placeholder="Your Email" class="w-full p-3 mb-4 rounded bg-gray-800 text-white" />
-          <textarea placeholder="Your Message" rows="5" class="w-full p-3 mb-4 rounded bg-gray-800 text-white"></textarea>
-          <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-3 rounded">Send Message</button>
-        </form>
+        <details class="glass p-4" data-sr>
+          <summary class="font-semibold">How can I get a quote?</summary>
+          <p class="mt-2">Just reach out via phone, email, or our website contact form with your requirements.</p>
+        </details>
       </div>
     </section>
 
     <script>
-      const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll(".nav-link");
-
-      window.addEventListener("scroll", () => {
-        let current = "";
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (pageYOffset >= sectionTop - sectionHeight / 3) {
-            current = section.getAttribute("id");
-          }
-        });
-
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
-          }
-        });
+      ScrollReveal().reveal('[data-sr]', { duration: 1000, distance: '50px', origin: 'bottom', easing: 'ease-in-out' });
+      const swiper = new Swiper(".mySwiper", {
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        autoplay: {
+          delay: 5000,
+        },
       });
-
-      ScrollReveal().reveal(".glass", { delay: 100, distance: "30px", origin: "bottom", interval: 100 });
     </script>
   </body>
 </html>
