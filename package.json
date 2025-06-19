@@ -1,5 +1,5 @@
 {
-  "name": "AstraNetix Solution Pvt. Ltd.",
+  "name": "astra-backend",
   "version": "1.0.0",
   "description": "Futuristic animated website for AstraNetix Solution Pvt. Ltd.",
   "main": "server.js",
@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^7.6.1"
+    "mongoose": "^7.6.1",
+    "dotenv": "^16.3.1"
   }
 }
