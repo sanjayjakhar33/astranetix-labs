@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
       #bg-video {
         position: fixed;
         top: 0;
@@ -33,10 +36,25 @@
       }
     </style>
   </head>
-  <body class="text-white bg-black font-sans scroll-smooth">
+  <body class="text-white bg-black font-sans">
     <video autoplay muted loop id="bg-video">
       <source src="assets/video.mp4" type="video/mp4" />
     </video>
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur bg-black/60 border-b border-cyan-500 text-white">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <div class="font-bold text-lg">AstraNetix</div>
+        <ul class="flex space-x-6 text-sm">
+          <li><a href="#about" class="hover:text-cyan-300">About</a></li>
+          <li><a href="#services" class="hover:text-cyan-300">Services</a></li>
+          <li><a href="#faq" class="hover:text-cyan-300">FAQ</a></li>
+          <li><a href="#contact" class="hover:text-cyan-300">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="pt-20"></div> <!-- Spacer for fixed nav -->
 
     <div class="fixed bottom-5 left-5 z-50">
       <button onclick="document.body.classList.toggle('bg-black'); document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-white'); document.body.classList.toggle('text-black');" class="bg-gray-800 text-white p-2 rounded-full shadow hover:bg-gray-700">
@@ -56,7 +74,8 @@
       <p class="text-xl text-cyan-300 mt-2">Empowering IT. Enabling Trust.</p>
     </header>
 
-    <section class="py-16 px-6 md:px-20 bg-black">
+    <!-- About Section -->
+    <section id="about" class="py-16 px-6 md:px-20 bg-black">
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold mb-4">🚀 About Us</h2>
         <p class="max-w-4xl mx-auto text-lg text-gray-300">
@@ -109,6 +128,9 @@
       </div>
     </section>
 
-    <!-- The rest of the code remains unchanged: services, testimonials, contact -->
+    <!-- Placeholder IDs for future scroll targets -->
+    <section id="services"></section>
+    <section id="faq"></section>
+    <section id="contact"></section>
   </body>
 </html>
