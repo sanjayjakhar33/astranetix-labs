@@ -1,25 +1,27 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-require('dotenv').config(); // To load MONGODB_URI from .env
+require('dotenv').config(); // Load environment variables
 
-const contactRoutes = require('./routes/contact'); // Route handler
+const contactRoutes = require('./routes/contact'); // Contact form route
+const authRoutes = require('./routes/auth');       // ✅ Admin auth route
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse form data
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static frontend (main site)
+// Serve static frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve admin dashboard (to view submissions)
+// Serve admin dashboard (login, view, etc.)
 app.use('/dashboard', express.static(path.join(__dirname, 'dashboard')));
 
-// API route for contact form submissions
-app.use('/api/contact', contactRoutes);
+// API routes
+app.use('/api/contact', contactRoutes);  // Contact form submission
+app.use('/api/auth', authRoutes);        // ✅ Admin login/register/forgot
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
