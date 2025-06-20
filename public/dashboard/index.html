@@ -51,6 +51,18 @@
       color: #bbb;
       margin-top: 10px;
     }
+    .logout-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
     @media (max-width: 600px) {
       body { padding: 20px; }
       h1 { font-size: 2rem; }
@@ -59,10 +71,27 @@
   </style>
 </head>
 <body>
+
+  <!-- 🚪 Logout button -->
+  <button class="logout-btn" onclick="logout()">Logout</button>
+
   <h1>📥 Contact Submissions</h1>
   <div class="entries" id="entries">Loading...</div>
 
   <script>
+    // 🔐 Protect this page - check if token exists
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/dashboard/login.html";
+    }
+
+    // 🚪 Logout function
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "/dashboard/login.html";
+    }
+
+    // Fetch contact submissions
     fetch('/api/contact/all')
       .then(res => res.json())
       .then(data => {
