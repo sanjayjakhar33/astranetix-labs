@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forgot Password - AstraNetix</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>🔑 Forgot Password</h2>
+    <form id="forgotForm">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">Send OTP</button>
+    </form>
+
+    <form id="verifyForm" style="display: none; margin-top: 1rem;">
+      <input type="text" name="otp" placeholder="Enter OTP" required />
+      <input type="password" name="newPassword" placeholder="New Password" required />
+      <button type="submit">Reset Password</button>
+    </form>
+
+    <p id="forgotMsg" style="color: green;"></p>
+  </div>
+
+  <script>
+    let userEmail = '';
+    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      userEmail = e.target.email.value;
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('forgotMsg').innerText = 'OTP sent to your email.';
+        document.getElementById('forgotForm').style.display = 'none';
+        document.getElementById('verifyForm').style.display = 'block';
+      } else {
+        document.getElementById('forgotMsg').innerText = data.error || 'Failed to send OTP';
+      }
+    });
+
+    document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const otp = e.target.otp.value;
+      const newPassword = e.target.newPassword.value;
+
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail, otp, newPassword })
+      });
+
+      const data = await res.json();
+      document.getElementById('forgotMsg').innerText = res.ok
+        ? 'Password reset successful! You can now login.'
+        : data.error || 'Failed to reset password.';
+    });
+  </script>
+</body>
+</html>
