@@ -1,5 +1,13 @@
 // dashboard.js
 
+// 🔐 Protect dashboard (only for /dashboard/ or /dashboard/index.html)
+if (window.location.pathname === "/dashboard/" || window.location.pathname === "/dashboard/index.html") {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/dashboard/login.html"; // Redirect if not logged in
+  }
+}
+
 // Handle login
 if (window.location.pathname.includes("login.html")) {
   document.getElementById("loginForm").addEventListener("submit", async (e) => {
@@ -58,4 +66,10 @@ if (window.location.pathname.includes("reset.html")) {
     alert(data.message || data.error);
     if (res.ok) window.location.href = "/dashboard/login.html";
   });
+}
+
+// 🚪 Logout function
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "/dashboard/login.html";
 }
