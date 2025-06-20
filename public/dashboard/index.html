@@ -1,18 +1,66 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>AstraNetix Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial; padding: 20px; background: #111; color: #fff; }
-    h1 { color: cyan; }
-    .entry { background: #222; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #00ffe0;
+      margin-bottom: 30px;
+    }
+    .entries {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-height: 75vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .entry {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      transition: 0.3s;
+    }
+    .entry:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: scale(1.01);
+    }
+    .entry p {
+      margin: 6px 0;
+      line-height: 1.5;
+    }
+    .entry strong {
+      color: #00ffff;
+    }
+    .timestamp {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      body { padding: 20px; }
+      h1 { font-size: 2rem; }
+      .entry { padding: 15px; }
+    }
   </style>
 </head>
 <body>
   <h1>📥 Contact Submissions</h1>
-  <div id="entries">Loading...</div>
+  <div class="entries" id="entries">Loading...</div>
 
   <script>
     fetch('/api/contact/all')
@@ -20,16 +68,24 @@
       .then(data => {
         const container = document.getElementById('entries');
         container.innerHTML = '';
+        if (data.length === 0) {
+          container.innerHTML = '<p>No entries found.</p>';
+          return;
+        }
         data.forEach(entry => {
+          const date = new Date(entry.submittedAt).toLocaleString();
           container.innerHTML += `
             <div class="entry">
               <p><strong>Name:</strong> ${entry.name}</p>
               <p><strong>Email:</strong> ${entry.email}</p>
               <p><strong>Message:</strong> ${entry.message}</p>
-              <p><em>${new Date(entry.submittedAt).toLocaleString()}</em></p>
+              <p class="timestamp">🕒 ${date}</p>
             </div>
           `;
         });
+      })
+      .catch(() => {
+        document.getElementById('entries').innerHTML = '<p style="color:red;">Error loading data</p>';
       });
   </script>
 </body>
