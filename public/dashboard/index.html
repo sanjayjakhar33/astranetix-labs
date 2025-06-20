@@ -79,20 +79,16 @@
   <div class="entries" id="entries">Loading...</div>
 
   <script>
-    // 🔐 Protect this page - check if token exists
-    const token = localStorage.getItem("token");
+    // 🚫 Redirect if not logged in
+    const token = localStorage.getItem('token');
     if (!token) {
-      window.location.href = "/dashboard/login.html";
+      window.location.href = '/dashboard/login.html';
     }
 
-    // 🚪 Logout function
-    function logout() {
-      localStorage.removeItem("token");
-      window.location.href = "/dashboard/login.html";
-    }
-
-    // Fetch contact submissions
-    fetch('/api/contact/all')
+    // ✅ Fetch contact submissions with auth
+    fetch('/api/contact/all', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById('entries');
@@ -116,6 +112,12 @@
       .catch(() => {
         document.getElementById('entries').innerHTML = '<p style="color:red;">Error loading data</p>';
       });
+
+    // 🚪 Logout function
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "/dashboard/login.html";
+    }
   </script>
 </body>
 </html>
