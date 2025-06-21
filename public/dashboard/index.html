@@ -7,32 +7,44 @@
   <link rel="stylesheet" href="/dashboard/dashboard.css">
 </head>
 <body>
+  <!-- 🧱 Main Container with Sidebar -->
+  <div class="dashboard-container">
 
-  <!-- 🔝 Top Navigation -->
-  <header class="header">
-    <h1>📊 AstraNetix Admin Panel</h1>
-    <button class="logout-btn" onclick="logout()">Logout</button>
-  </header>
+    <!-- 📚 Sidebar Navigation -->
+    <aside class="sidebar">
+      <h2>🔧 Admin</h2>
+      <nav>
+        <a href="/dashboard/index.html">📊 Dashboard</a>
+        <a href="/dashboard/add-admin.html">➕ Add Admin</a>
+        <button onclick="logout()">🚪 Logout</button>
+      </nav>
+    </aside>
 
-  <!-- 📊 Stats Overview -->
-  <section class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-title">📨 Total Inquiries</div>
-      <div class="stat-value" id="totalInquiries">...</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-title">👤 Total Admins</div>
-      <div class="stat-value" id="totalAdmins">...</div>
-    </div>
-  </section>
+    <!-- 📋 Main Dashboard Panel -->
+    <main class="main-content">
+      <h1>📊 AstraNetix Admin Panel</h1>
 
-  <!-- 📥 Inquiries Section -->
-  <section class="entries-section">
-    <h2>📬 Contact Submissions</h2>
-    <div class="entries" id="entries">Loading...</div>
-  </section>
+      <!-- 📊 Stats Overview -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">📨 Total Inquiries</div>
+          <div class="stat-value" id="totalInquiries">...</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">👤 Total Admins</div>
+          <div class="stat-value" id="totalAdmins">...</div>
+        </div>
+      </section>
 
-  <!-- JS Section -->
+      <!-- 📥 Inquiries Section -->
+      <section class="entries-section">
+        <h2>📬 Contact Submissions</h2>
+        <div class="entries" id="entries">Loading...</div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 📜 Scripts -->
   <script>
     const token = localStorage.getItem('token');
     if (!token) window.location.href = '/dashboard/login.html';
@@ -80,6 +92,5 @@
       window.location.href = "/dashboard/login.html";
     }
   </script>
-
 </body>
 </html>
