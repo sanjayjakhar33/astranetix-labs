@@ -9,10 +9,24 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post('/register', async (req, res) => {
   const { username, email, phone, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new AdminUser({ username, email, phone, password: hashedPassword });
-  await user.save();
-  res.status(201).json({ message: 'Admin registered' });
+
+  try {
+    const existing = await AdminUser.findOne({ email });
+    if (existing) return res.status(400).json({ error: 'Admin already exists' });
+
+    // ❌ Prevent if at least 1 admin already exists
+    const count = await AdminUser.countDocuments();
+    if (count > 0) return res.status(403).json({ error: 'Admin creation locked' });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new AdminUser({ username, email, phone, password: hashedPassword });
+    await user.save();
+    res.status(201).json({ message: 'Admin registered' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error while registering admin' });
+  }
 });
 
 router.post('/login', async (req, res) => {
