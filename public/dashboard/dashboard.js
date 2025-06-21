@@ -73,3 +73,36 @@ function logout() {
   localStorage.removeItem("token");
   window.location.href = "/dashboard/login.html";
 }
+
+// 🔐 Protect /dashboard/add-admin.html
+if (window.location.pathname.includes("add-admin.html")) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/dashboard/login.html";
+  }
+
+  document.getElementById("addAdminForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const payload = {
+      username: form.username.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      password: form.password.value
+    };
+
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    const msg = document.getElementById("msg");
+    msg.innerText = data.message || data.error;
+    msg.style.color = res.ok ? "lime" : "red";
+  });
+}
