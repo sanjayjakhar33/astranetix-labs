@@ -47,7 +47,7 @@
     th {
       background: #00ffe011;
     }
-    .add-btn, .print-btn, .toggle-btn, .save-btn {
+    .add-btn, .print-btn, .toggle-btn, .save-btn, .pdf-btn {
       background: #00ffe0;
       border: none;
       padding: 0.7rem 1.5rem;
@@ -59,6 +59,7 @@
     .print-btn { background: #4caf50; color: #fff; }
     .toggle-btn { background: #444; color: #fff; }
     .save-btn { background: #0099ff; }
+    .pdf-btn { background: #ff9800; color: #000; }
     .totals {
       margin-top: 1.5rem;
       font-size: 1.1rem;
@@ -75,11 +76,13 @@
       margin: 0.3rem 0;
     }
     @media print {
-      .add-btn, .print-btn, .toggle-btn, .save-btn {
+      .add-btn, .print-btn, .toggle-btn, .save-btn, .pdf-btn {
         display: none;
       }
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -124,6 +127,7 @@
 
       <button class="save-btn" onclick="saveInvoice()">💾 Save Invoice</button>
       <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
+      <button class="pdf-btn" id="downloadPdfBtn">📄 Download PDF</button>
     </div>
 
     <!-- 📜 Invoice History -->
@@ -225,6 +229,21 @@
         `;
       });
     }
+
+    document.getElementById("downloadPdfBtn").addEventListener("click", async () => {
+      const { jsPDF } = window.jspdf;
+      const invoiceElement = document.querySelector(".invoice-section");
+      const canvas = await html2canvas(invoiceElement);
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = (canvas.height * pageWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+      pdf.save(`invoice_${Date.now()}.pdf`);
+    });
   </script>
 </body>
 </html>
+
