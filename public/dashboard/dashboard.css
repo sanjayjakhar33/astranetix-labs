@@ -187,4 +187,20 @@ body {
   .stats-grid {
     flex-direction: column;
   }
+.download-btn {
+  background-color: #00ffe0;
+  border: none;
+  padding: 10px 20px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #00bfa5;
+}
+
 }
