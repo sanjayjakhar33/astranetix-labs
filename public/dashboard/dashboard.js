@@ -107,7 +107,6 @@ if (window.location.pathname.includes("add-admin.html")) {
   });
 }
 // =============================
-// =============================
 // 🧾 Invoice: Generate Invoice
 // =============================
 if (window.location.pathname.includes("invoice.html")) {
