@@ -1,35 +1,46 @@
+/* Global Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
   background-color: #0e1015;
-  color: #fff;
-  padding: 2rem;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
 }
+
+/* Form Styling (Login, Forgot, Reset) */
 form {
   max-width: 400px;
-  margin: auto;
+  margin: 4rem auto;
   background: #1c1e24;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
 }
 input, button {
   width: 100%;
   margin-bottom: 1rem;
   padding: 0.75rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1rem;
 }
 button {
-  background-color: #4caf50;
-  color: white;
+  background-color: #00ffe0;
+  color: #000;
   font-weight: bold;
+  transition: 0.3s;
 }
-/* Sidebar layout for Admin Dashboard */
+button:hover {
+  background-color: #00ccbb;
+}
 
+/* Layout Structure */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
 }
 
+/* Sidebar */
 .sidebar {
   width: 250px;
   background-color: #1c1e24;
@@ -40,57 +51,133 @@ button {
   position: fixed;
   height: 100%;
 }
-
 .sidebar h2 {
   color: #00ffe0;
   text-align: center;
   margin-bottom: 2rem;
 }
-
 .sidebar a {
   color: #ccc;
   text-decoration: none;
   padding: 0.75rem 1rem;
   border-radius: 6px;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-
 .sidebar a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: rgba(0, 255, 255, 0.1);
+  color: #00ffff;
 }
 
+/* Main Content */
 .main-content {
   margin-left: 250px;
   flex: 1;
   padding: 2rem;
 }
-
 .main-content h1 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: #00ffe0;
 }
 
-.card {
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.stat-card {
   background: #1c1e24;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
   border: 1px solid rgba(0, 255, 255, 0.1);
-  transition: 0.3s;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px);
+}
+.stat-title {
+  color: #00ffff;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
 }
 
-.card:hover {
+/* Entries/Logs Section */
+.entries-section {
+  margin-top: 2rem;
+}
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.entry {
+  background: #1c1e24;
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  padding: 1.25rem;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.entry:hover {
   background: rgba(255, 255, 255, 0.05);
   transform: scale(1.01);
 }
-
-.card p {
-  margin: 0.5rem 0;
+.entry p {
+  margin: 0.4rem 0;
 }
-
+.entry strong {
+  color: #00ffff;
+}
 .timestamp {
   color: #aaa;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: 0.3s ease;
+}
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  .logout-btn {
+    position: static;
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+  }
 }
