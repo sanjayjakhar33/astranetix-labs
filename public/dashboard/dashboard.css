@@ -1,183 +1,58 @@
-/* Global Styles */
-body {
-  font-family: 'Segoe UI', 'Roboto', sans-serif;
-  background-color: #0e1015;
-  color: #ffffff;
-  margin: 0;
-  padding: 0;
-}
+/* Updated dashboard.css for AstraNetix Admin Dashboard */
 
-/* Form Styling (Login, Forgot, Reset) */
-form {
-  max-width: 400px;
-  margin: 4rem auto;
-  background: #1c1e24;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-}
-input, button {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-}
-button {
-  background-color: #00ffe0;
-  color: #000;
-  font-weight: bold;
-  transition: 0.3s;
-}
-button:hover {
-  background-color: #00ccbb;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-/* Layout Structure */
-.dashboard-container {
-  display: flex;
-  min-height: 100vh;
-}
+body { font-family: 'Poppins', sans-serif; background-color: #0e1015; color: #fff; margin: 0; padding: 0; }
 
-/* Sidebar */
-.sidebar {
-  width: 250px;
-  background-color: #1c1e24;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: fixed;
-  height: 100%;
-}
-.sidebar h2 {
-  color: #00ffe0;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.sidebar a {
-  color: #ccc;
-  text-decoration: none;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-.sidebar a:hover {
-  background: rgba(0, 255, 255, 0.1);
-  color: #00ffff;
-}
+/* Layout */ .dashboard-container { display: flex; min-height: 100vh; }
 
-/* Main Content */
-.main-content {
-  margin-left: 250px;
-  flex: 1;
-  padding: 2rem;
-}
-.main-content h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #00ffe0;
-}
+/* Sidebar */ .sidebar { width: 250px; background-color: #1c1e24; padding: 2rem 1rem; display: flex; flex-direction: column; gap: 1.5rem; position: fixed; height: 100%; box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); }
 
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-.stat-card {
-  background: #1c1e24;
-  border: 1px solid rgba(0, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 10px;
-  text-align: center;
-  transition: 0.3s ease;
-}
-.stat-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-3px);
-}
-.stat-title {
-  color: #00ffff;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-.stat-value {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #ffffff;
-}
+.sidebar h2 { color: #00ffe0; text-align: center; margin-bottom: 2rem; font-size: 1.5rem; }
 
-/* Entries/Logs Section */
-.entries-section {
-  margin-top: 2rem;
-}
-.entries {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.entry {
-  background: #1c1e24;
-  border: 1px solid rgba(0, 255, 255, 0.1);
-  padding: 1.25rem;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-.entry:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: scale(1.01);
-}
-.entry p {
-  margin: 0.4rem 0;
-}
-.entry strong {
-  color: #00ffff;
-}
-.timestamp {
-  color: #aaa;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-}
+.sidebar a { color: #ccc; text-decoration: none; padding: 0.75rem 1rem; border-radius: 6px; transition: background 0.2s ease, color 0.2s ease; display: flex; align-items: center; gap: 0.5rem; }
 
-/* Logout Button */
-.logout-btn {
-  background: red;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-weight: bold;
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  transition: 0.3s ease;
-}
-.logout-btn:hover {
-  background: #c0392b;
-}
+.sidebar a:hover, .sidebar a.active { background: rgba(0, 255, 255, 0.1); color: #fff; }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-  .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
-  .main-content {
-    margin-left: 0;
-    padding: 1rem;
-  }
-  .logout-btn {
-    position: static;
-    margin-top: 1rem;
-    display: block;
-    width: 100%;
-  }
-}
+.logout-btn { background-color: #00ffe0; border: none; padding: 10px; border-radius: 8px; color: #0e1015; font-weight: 600; cursor: pointer; transition: background 0.3s ease; }
+
+.logout-btn:hover { background-color: #00d4c2; }
+
+/* Main Area */ .main-content { margin-left: 250px; flex: 1; padding: 2rem; }
+
+.main-content h1 { font-size: 2rem; margin-bottom: 1.5rem; color: #00ffe0; }
+
+.stats-grid { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+
+.stat-card { flex: 1; min-width: 250px; background: #1c1e24; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0, 255, 255, 0.2); transition: 0.3s; box-shadow: 0 0 10px rgba(0, 255, 255, 0.1); }
+
+.stat-card:hover { background: rgba(255, 255, 255, 0.05); transform: scale(1.02); }
+
+.stat-title { font-weight: 600; color: #00e6cc; margin-bottom: 10px; }
+
+.stat-value { font-size: 1.8rem; font-weight: 700; }
+
+/* Cards */ .entries-section h2 { font-size: 1.6rem; margin: 2rem 0 1rem; color: #ffffff; }
+
+.entries { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.entry { background: #1c1e24; border: 1px solid rgba(0, 255, 255, 0.1); border-radius: 10px; padding: 1rem 1.5rem; transition: 0.3s; box-shadow: 0 0 8px rgba(0, 255, 255, 0.05); animation: fadeIn 0.5s ease-in-out; }
+
+.entry:hover { background: rgba(255, 255, 255, 0.03); transform: translateY(-2px); }
+
+.entry p { margin: 6px 0; line-height: 1.4; }
+
+.entry strong, .entry p strong { color: #00ffff; }
+
+.timestamp { color: #aaa; font-size: 0.85rem; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+
+/* Animations */ @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) { .dashboard-container { flex-direction: column; }
+
+.sidebar { width: 100%; height: auto; position: relative; flex-direction: row; justify-content: space-around; }
+
+.main-content { margin-left: 0; padding: 1rem; }
+
+.stats-grid { flex-direction: column; } }
+
