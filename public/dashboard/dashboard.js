@@ -106,3 +106,101 @@ if (window.location.pathname.includes("add-admin.html")) {
     msg.style.color = res.ok ? "lime" : "red";
   });
 }
+// =============================
+// 🧾 Invoice: Generate Invoice
+// =============================
+if (window.location.pathname.includes("invoice.html")) {
+  document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    const form = e.target;
+    const payload = {
+      clientName: form.clientName.value,
+      clientEmail: form.clientEmail.value,
+      products: []
+    };
+
+    const productNames = form.querySelectorAll(".product-name");
+    const productPrices = form.querySelectorAll(".product-price");
+
+    for (let i = 0; i < productNames.length; i++) {
+      payload.products.push({
+        name: productNames[i].value,
+        price: parseFloat(productPrices[i].value)
+      });
+    }
+
+    const res = await fetch("/api/invoice/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("✅ Invoice saved successfully!");
+      window.print(); // Trigger browser print
+      form.reset();
+    } else {
+      alert("❌ Error: " + data.error);
+    }
+  });
+
+  // ➕ Add more product rows dynamically
+  document.getElementById("addProductBtn").addEventListener("click", () => {
+    const container = document.getElementById("productContainer");
+    const row = document.createElement("div");
+    row.className = "product-row";
+    row.innerHTML = `
+      <input type="text" class="product-name" placeholder="Product Name" required />
+      <input type="number" class="product-price" placeholder="Price" required />
+    `;
+    container.appendChild(row);
+  });
+}
+
+// =============================
+// 📜 Invoice: History Page
+// =============================
+if (window.location.pathname.includes("invoice-history.html")) {
+  const token = localStorage.getItem("token");
+
+  fetch("/api/invoice/history", {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("historyList");
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p>No invoices found.</p>";
+        return;
+      }
+
+      data.forEach(inv => {
+        const date = new Date(inv.createdAt).toLocaleString();
+        const items = inv.products.map(p => `<li>${p.name}: ₹${p.price.toFixed(2)}</li>`).join("");
+        const total = inv.products.reduce((sum, p) => sum + p.price, 0);
+        const gst = total * 0.18;
+        const grandTotal = total + gst;
+
+        container.innerHTML += `
+          <div class="entry">
+            <p><strong>Client:</strong> ${inv.clientName} (${inv.clientEmail})</p>
+            <p><strong>Date:</strong> ${date}</p>
+            <ul>${items}</ul>
+            <p><strong>Subtotal:</strong> ₹${total.toFixed(2)}</p>
+            <p><strong>GST (18%):</strong> ₹${gst.toFixed(2)}</p>
+            <p><strong>Total:</strong> ₹${grandTotal.toFixed(2)}</p>
+          </div>
+        `;
+      });
+    })
+    .catch(() => {
+      document.getElementById("historyList").innerHTML = "<p style='color:red;'>Error loading invoices</p>";
+    });
+}
+
