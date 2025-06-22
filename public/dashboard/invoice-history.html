@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invoice History</title>
+  <link rel="stylesheet" href="/dashboard/dashboard.css" />
+</head>
+<body>
+  <div class="main-content">
+    <h1>🧾 Invoice History</h1>
+    <div id="history"></div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = "/dashboard/login.html";
+
+    fetch('/api/invoice/history', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('history');
+      if (data.length === 0) {
+        container.innerHTML = '<p>No invoices found.</p>';
+        return;
+      }
+
+      data.forEach(inv => {
+        const date = new Date(inv.createdAt).toLocaleString();
+        container.innerHTML += `
+          <div class="card">
+            <p><strong>Client:</strong> ${inv.clientName} (${inv.clientCompany})</p>
+            <p><strong>Items:</strong> ${inv.items.length}</p>
+            <p><strong>Total:</strong> ₹${inv.total}</p>
+            <p><strong>GST:</strong> ₹${inv.gst}</p>
+            <p><strong>Grand Total:</strong> ₹${inv.grandTotal}</p>
+            <p class="timestamp">📅 ${date}</p>
+          </div>
+        `;
+      });
+    })
+    .catch(() => {
+      document.getElementById('history').innerHTML = '<p style="color:red;">Error loading history</p>';
+    });
+  </script>
+</body>
+</html>
