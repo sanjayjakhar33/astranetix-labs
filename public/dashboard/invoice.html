@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Invoice Generator | AstraNetix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/dashboard/dashboard.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0e1015;
+      color: #fff;
+      padding: 2rem;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: auto;
+      background: #1c1e24;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.1);
+    }
+
+    h2, h3 {
+      color: #00ffe0;
+      margin-bottom: 1rem;
+    }
+
+    input, select {
+      padding: 0.6rem;
+      margin: 0.3rem;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      background: #2a2d37;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    table, th, td {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .btn {
+      margin-top: 1rem;
+      background: #00ffe0;
+      color: #000;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #00c9aa;
+    }
+
+    .total-box {
+      margin-top: 1.5rem;
+      background: #22242d;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+    }
+
+    @media print {
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <h2>🧾 Invoice Generator</h2>
+    <div class="no-print">
+      <label>Client Company Name</label>
+      <input type="text" id="clientName" placeholder="e.g., GigaNet Pvt. Ltd." required />
+
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Unit Price (₹)</th>
+            <th>Subtotal (₹)</th>
+            <th>🗑️</th>
+          </tr>
+        </thead>
+        <tbody id="invoiceBody"></tbody>
+      </table>
+
+      <button class="btn" onclick="addRow()">+ Add Product</button>
+    </div>
+
+    <div class="total-box">
+      <p>Subtotal: ₹<span id="subTotal">0.00</span></p>
+      <p>GST (18%): ₹<span id="gst">0.00</span></p>
+      <hr />
+      <p><strong>Grand Total: ₹<span id="total">0.00</span></strong></p>
+    </div>
+
+    <div class="no-print">
+      <button class="btn" onclick="window.print()">🖨️ Print Invoice</button>
+    </div>
+  </div>
+
+  <script>
+    function addRow() {
+      const tbody = document.getElementById("invoiceBody");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td><input type="text" placeholder="e.g., MikroTik RB750" onchange="calculate()"/></td>
+        <td><input type="number" min="1" value="1" onchange="calculate()"/></td>
+        <td><input type="number" min="0" value="0" onchange="calculate()"/></td>
+        <td class="subtotal">0.00</td>
+        <td><button onclick="this.closest('tr').remove(); calculate()">❌</button></td>
+      `;
+
+      tbody.appendChild(row);
+      calculate();
+    }
+
+    function calculate() {
+      let subTotal = 0;
+      document.querySelectorAll("#invoiceBody tr").forEach(row => {
+        const qty = parseFloat(row.cells[1].querySelector('input').value || 0);
+        const price = parseFloat(row.cells[2].querySelector('input').value || 0);
+        const subtotal = qty * price;
+        row.cells[3].innerText = subtotal.toFixed(2);
+        subTotal += subtotal;
+      });
+
+      const gst = subTotal * 0.18;
+      const total = subTotal + gst;
+
+      document.getElementById("subTotal").innerText = subTotal.toFixed(2);
+      document.getElementById("gst").innerText = gst.toFixed(2);
+      document.getElementById("total").innerText = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
