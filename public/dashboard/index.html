@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AstraNetix Admin Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/dashboard/dashboard.css">
+  <link rel="stylesheet" href="/dashboard/dashboard.css" />
 </head>
 <body>
-  <!-- 🧱 Main Container with Sidebar -->
   <div class="dashboard-container">
-
-    <!-- 📚 Sidebar Navigation -->
+    <!-- 📌 Sidebar -->
     <aside class="sidebar">
-      <h2>🔧 Admin</h2>
-      <nav>
-        <a href="/dashboard/index.html">📊 Dashboard</a>
-        <a href="/dashboard/add-admin.html">➕ Add Admin</a>
-        <button onclick="logout()">🚪 Logout</button>
-      </nav>
+      <h2>🔧 AstraNetix</h2>
+      <a href="/dashboard/">📊 Dashboard</a>
+      <a href="/dashboard/add-admin.html">➕ Add Admin</a>
+      <a href="#" onclick="logout()">🚪 Logout</a>
     </aside>
 
-    <!-- 📋 Main Dashboard Panel -->
+    <!-- 🧩 Main Content -->
     <main class="main-content">
-      <h1>📊 AstraNetix Admin Panel</h1>
+      <h1>📊 Admin Overview</h1>
 
-      <!-- 📊 Stats Overview -->
+      <!-- 📈 Stat Cards -->
       <section class="stats-grid">
         <div class="stat-card">
           <div class="stat-title">📨 Total Inquiries</div>
@@ -36,8 +32,8 @@
         </div>
       </section>
 
-      <!-- 📥 Inquiries Section -->
-      <section class="entries-section">
+      <!-- 📨 Contact Submissions -->
+      <section>
         <h2>📬 Contact Submissions</h2>
         <div class="entries" id="entries">Loading...</div>
       </section>
@@ -46,35 +42,36 @@
 
   <!-- 📜 Scripts -->
   <script>
-    const token = localStorage.getItem('token');
-    if (!token) window.location.href = '/dashboard/login.html';
+    const token = localStorage.getItem("token");
+    if (!token) window.location.href = "/dashboard/login.html";
 
-    // Fetch dashboard stats
-    fetch('/api/stats', {
+    // 🔢 Fetch Stats
+    fetch("/api/stats", {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => res.json())
     .then(data => {
-      document.getElementById('totalInquiries').innerText = data.inquiries || 0;
-      document.getElementById('totalAdmins').innerText = data.admins || 0;
+      document.getElementById("totalInquiries").innerText = data.inquiries || 0;
+      document.getElementById("totalAdmins").innerText = data.admins || 0;
     });
 
-    // Fetch contact submissions
-    fetch('/api/contact/all', {
+    // 📥 Fetch Entries
+    fetch("/api/contact/all", {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => res.json())
     .then(data => {
-      const container = document.getElementById('entries');
-      container.innerHTML = '';
-      if (data.length === 0) {
-        container.innerHTML = '<p>No entries found.</p>';
+      const container = document.getElementById("entries");
+      container.innerHTML = "";
+      if (!data.length) {
+        container.innerHTML = "<p>No entries found.</p>";
         return;
       }
+
       data.forEach(entry => {
         const date = new Date(entry.submittedAt).toLocaleString();
         container.innerHTML += `
-          <div class="entry">
+          <div class="card">
             <p><strong>Name:</strong> ${entry.name}</p>
             <p><strong>Email:</strong> ${entry.email}</p>
             <p><strong>Message:</strong> ${entry.message}</p>
@@ -84,7 +81,7 @@
       });
     })
     .catch(() => {
-      document.getElementById('entries').innerHTML = '<p style="color:red;">Error loading data</p>';
+      document.getElementById("entries").innerHTML = '<p style="color:red;">Error loading data</p>';
     });
 
     function logout() {
