@@ -109,7 +109,22 @@ if (window.location.pathname.includes("add-admin.html")) {
 // =============================
 // 🧾 Invoice: Generate Invoice
 // =============================
-if (window.location.pathname.includes("invoice.html")) {
+if (window.location.pathname.includes("invoice.html"))
+document.getElementById("downloadPdfBtn").addEventListener("click", async () => {
+  const { jsPDF } = window.jspdf;
+  const invoiceElement = document.getElementById("invoiceForm"); // or use a wrapper div
+  
+  const canvas = await html2canvas(invoiceElement);
+  const imgData = canvas.toDataURL("image/png");
+
+  const pdf = new jsPDF("p", "mm", "a4");
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = (canvas.height * pageWidth) / canvas.width;
+
+  pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+  pdf.save(`invoice_${Date.now()}.pdf`);
+});
+ {
   document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
