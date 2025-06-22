@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invoice - AstraNetix</title>
+  <title>Invoice - AstraNetix Solutions</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -14,6 +14,21 @@
     h1 {
       text-align: center;
       color: #00ffe0;
+      margin-bottom: 0.5rem;
+    }
+    .header-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .logo {
+      max-width: 150px;
+    }
+    .company-details {
+      text-align: right;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     .container {
       max-width: 900px;
@@ -86,7 +101,22 @@
 </head>
 <body>
   <div class="container">
-    <h1>🧾 Invoice - AstraNetix Solution</h1>
+    <div class="header-info">
+      <div>
+        <img src="/public/assets/logo.png" alt="AstraNetix Logo" class="logo">
+      </div>
+      <div class="company-details">
+        <strong>AstraNetix Solutions Pvt. Ltd.</strong><br>
+        123 Tech Park, Bengaluru, Karnataka - 560001<br>
+        Phone: +91 80 1234 5678<br>
+        Email: astranetix@gmail.com<br>
+        Website: www.astranetix.com<br>
+        GSTIN: 29ABCDE1234F1Z2<br>
+        PAN: ABCDE1234F
+      </div>
+    </div>
+
+    <h1>🧾 Invoice</h1>
 
     <button class="toggle-btn" onclick="toggleSection()">🧮 Switch to History</button>
 
@@ -246,4 +276,3 @@
   </script>
 </body>
 </html>
-
