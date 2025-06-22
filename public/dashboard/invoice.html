@@ -2,154 +2,228 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Invoice Generator | AstraNetix</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/dashboard/dashboard.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice - AstraNetix</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #0e1015;
+      background: #0f2027;
       color: #fff;
       padding: 2rem;
     }
-
-    .invoice-container {
+    h1 {
+      text-align: center;
+      color: #00ffe0;
+    }
+    .container {
       max-width: 900px;
       margin: auto;
       background: #1c1e24;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.1);
     }
-
-    h2, h3 {
+    label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
       color: #00ffe0;
+    }
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: none;
       margin-bottom: 1rem;
     }
-
-    input, select {
-      padding: 0.6rem;
-      margin: 0.3rem;
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      background: #2a2d37;
-      color: white;
-    }
-
     table {
       width: 100%;
+      margin-top: 1rem;
       border-collapse: collapse;
-      margin-top: 1rem;
     }
-
-    table, th, td {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
     th, td {
+      border: 1px solid #444;
       padding: 0.75rem;
-      text-align: left;
+      text-align: center;
     }
-
-    .btn {
-      margin-top: 1rem;
+    th {
+      background: #00ffe011;
+    }
+    .add-btn, .print-btn, .toggle-btn, .save-btn {
       background: #00ffe0;
-      color: #000;
-      padding: 0.7rem 1.2rem;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      padding: 0.7rem 1.5rem;
+      margin: 1rem 0.5rem;
       font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
     }
-
-    .btn:hover {
-      background: #00c9aa;
-    }
-
-    .total-box {
+    .print-btn { background: #4caf50; color: #fff; }
+    .toggle-btn { background: #444; color: #fff; }
+    .save-btn { background: #0099ff; }
+    .totals {
       margin-top: 1.5rem;
-      background: #22242d;
-      padding: 1rem;
-      border-radius: 8px;
       font-size: 1.1rem;
     }
-
+    .history-section { display: none; }
+    .history-card {
+      background: #1a1d23;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #00ffe0;
+    }
+    .history-card p {
+      margin: 0.3rem 0;
+    }
     @media print {
-      .no-print {
+      .add-btn, .print-btn, .toggle-btn, .save-btn {
         display: none;
       }
     }
   </style>
 </head>
 <body>
-  <div class="invoice-container">
-    <h2>🧾 Invoice Generator</h2>
-    <div class="no-print">
-      <label>Client Company Name</label>
-      <input type="text" id="clientName" placeholder="e.g., GigaNet Pvt. Ltd." required />
+  <div class="container">
+    <h1>🧾 Invoice - AstraNetix Solution</h1>
 
-      <table>
+    <button class="toggle-btn" onclick="toggleSection()">🧮 Switch to History</button>
+
+    <!-- 🚀 Create Invoice -->
+    <div class="invoice-section">
+      <label>Client Company Name</label>
+      <input type="text" id="clientName" placeholder="Enter client company name" />
+
+      <label>Date</label>
+      <input type="date" id="invoiceDate" />
+
+      <table id="productsTable">
         <thead>
           <tr>
             <th>Product</th>
             <th>Qty</th>
-            <th>Unit Price (₹)</th>
-            <th>Subtotal (₹)</th>
-            <th>🗑️</th>
+            <th>Price</th>
+            <th>Amount</th>
           </tr>
         </thead>
-        <tbody id="invoiceBody"></tbody>
+        <tbody id="productBody">
+          <tr>
+            <td><input type="text" placeholder="Product name" class="product"/></td>
+            <td><input type="number" value="1" min="1" class="qty"/></td>
+            <td><input type="number" value="0" class="price"/></td>
+            <td class="amount">0</td>
+          </tr>
+        </tbody>
       </table>
 
-      <button class="btn" onclick="addRow()">+ Add Product</button>
+      <button class="add-btn" onclick="addProduct()">➕ Add Product</button>
+
+      <div class="totals">
+        <p>Subtotal: ₹<span id="subtotal">0</span></p>
+        <p>GST (18%): ₹<span id="gst">0</span></p>
+        <p><strong>Total: ₹<span id="grandTotal">0</span></strong></p>
+      </div>
+
+      <button class="save-btn" onclick="saveInvoice()">💾 Save Invoice</button>
+      <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
     </div>
 
-    <div class="total-box">
-      <p>Subtotal: ₹<span id="subTotal">0.00</span></p>
-      <p>GST (18%): ₹<span id="gst">0.00</span></p>
-      <hr />
-      <p><strong>Grand Total: ₹<span id="total">0.00</span></strong></p>
-    </div>
-
-    <div class="no-print">
-      <button class="btn" onclick="window.print()">🖨️ Print Invoice</button>
+    <!-- 📜 Invoice History -->
+    <div class="history-section" id="history">
+      <h2>📜 Invoice History</h2>
+      <div id="historyList">Loading...</div>
     </div>
   </div>
 
   <script>
-    function addRow() {
-      const tbody = document.getElementById("invoiceBody");
-      const row = document.createElement("tr");
-
-      row.innerHTML = `
-        <td><input type="text" placeholder="e.g., MikroTik RB750" onchange="calculate()"/></td>
-        <td><input type="number" min="1" value="1" onchange="calculate()"/></td>
-        <td><input type="number" min="0" value="0" onchange="calculate()"/></td>
-        <td class="subtotal">0.00</td>
-        <td><button onclick="this.closest('tr').remove(); calculate()">❌</button></td>
-      `;
-
-      tbody.appendChild(row);
-      calculate();
+    function updateTotals() {
+      const rows = document.querySelectorAll('#productBody tr');
+      let subtotal = 0;
+      rows.forEach(row => {
+        const qty = +row.querySelector('.qty').value || 0;
+        const price = +row.querySelector('.price').value || 0;
+        const amount = qty * price;
+        row.querySelector('.amount').textContent = amount.toFixed(2);
+        subtotal += amount;
+      });
+      const gst = subtotal * 0.18;
+      const grand = subtotal + gst;
+      document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+      document.getElementById('gst').textContent = gst.toFixed(2);
+      document.getElementById('grandTotal').textContent = grand.toFixed(2);
     }
 
-    function calculate() {
-      let subTotal = 0;
-      document.querySelectorAll("#invoiceBody tr").forEach(row => {
-        const qty = parseFloat(row.cells[1].querySelector('input').value || 0);
-        const price = parseFloat(row.cells[2].querySelector('input').value || 0);
-        const subtotal = qty * price;
-        row.cells[3].innerText = subtotal.toFixed(2);
-        subTotal += subtotal;
+    function addProduct() {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><input type="text" placeholder="Product name" class="product"/></td>
+        <td><input type="number" value="1" min="1" class="qty"/></td>
+        <td><input type="number" value="0" class="price"/></td>
+        <td class="amount">0</td>
+      `;
+      document.getElementById('productBody').appendChild(row);
+      row.querySelectorAll('input').forEach(input => input.addEventListener('input', updateTotals));
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateTotals);
+    });
+
+    function saveInvoice() {
+      const name = document.getElementById('clientName').value;
+      const date = document.getElementById('invoiceDate').value;
+      if (!name || !date) return alert("Please enter client name and date");
+
+      const rows = document.querySelectorAll('#productBody tr');
+      const items = Array.from(rows).map(row => ({
+        product: row.querySelector('.product').value,
+        qty: +row.querySelector('.qty').value,
+        price: +row.querySelector('.price').value
+      }));
+
+      const invoice = {
+        name,
+        date,
+        subtotal: +document.getElementById('subtotal').textContent,
+        gst: +document.getElementById('gst').textContent,
+        total: +document.getElementById('grandTotal').textContent,
+        items
+      };
+
+      const history = JSON.parse(localStorage.getItem("invoices") || "[]");
+      history.push(invoice);
+      localStorage.setItem("invoices", JSON.stringify(history));
+      alert("Invoice saved");
+    }
+
+    function toggleSection() {
+      const invoiceSec = document.querySelector('.invoice-section');
+      const historySec = document.getElementById('history');
+      invoiceSec.style.display = invoiceSec.style.display === "none" ? "block" : "none";
+      historySec.style.display = historySec.style.display === "block" ? "none" : "block";
+
+      if (historySec.style.display === "block") loadHistory();
+    }
+
+    function loadHistory() {
+      const list = document.getElementById('historyList');
+      const history = JSON.parse(localStorage.getItem("invoices") || "[]");
+      list.innerHTML = '';
+      if (history.length === 0) {
+        list.innerHTML = '<p>No invoices saved.</p>';
+        return;
+      }
+
+      history.forEach((inv, i) => {
+        const itemList = inv.items.map(item =>
+          `<li>${item.product} - Qty: ${item.qty}, Price: ₹${item.price}</li>`
+        ).join('');
+        list.innerHTML += `
+          <div class="history-card">
+            <p><strong>#${i + 1}</strong> - ${inv.name} | ${inv.date}</p>
+            <ul style="margin: 0.5rem 0;">${itemList}</ul>
+            <p>Subtotal: ₹${inv.subtotal.toFixed(2)} | GST: ₹${inv.gst.toFixed(2)} | Total: ₹${inv.total.toFixed(2)}</p>
+          </div>
+        `;
       });
-
-      const gst = subTotal * 0.18;
-      const total = subTotal + gst;
-
-      document.getElementById("subTotal").innerText = subTotal.toFixed(2);
-      document.getElementById("gst").innerText = gst.toFixed(2);
-      document.getElementById("total").innerText = total.toFixed(2);
     }
   </script>
 </body>
