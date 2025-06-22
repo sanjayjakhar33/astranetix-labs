@@ -107,29 +107,33 @@ if (window.location.pathname.includes("add-admin.html")) {
   });
 }
 // =============================
+// =============================
 // 🧾 Invoice: Generate Invoice
 // =============================
-if (window.location.pathname.includes("invoice.html"))
-document.getElementById("downloadPdfBtn").addEventListener("click", async () => {
-  const { jsPDF } = window.jspdf;
-  const invoiceElement = document.getElementById("invoiceForm"); // or use a wrapper div
-  
-  const canvas = await html2canvas(invoiceElement);
-  const imgData = canvas.toDataURL("image/png");
+if (window.location.pathname.includes("invoice.html")) {
+  const token = localStorage.getItem("token");
 
-  const pdf = new jsPDF("p", "mm", "a4");
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = (canvas.height * pageWidth) / canvas.width;
+  // Download as PDF
+  document.getElementById("downloadPdfBtn").addEventListener("click", async () => {
+    const { jsPDF } = window.jspdf;
+    const invoiceElement = document.querySelector(".invoice-wrapper");
 
-  pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
-  pdf.save(`invoice_${Date.now()}.pdf`);
-});
- {
+    const canvas = await html2canvas(invoiceElement);
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = (canvas.height * pageWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+    pdf.save(`invoice_${Date.now()}.pdf`);
+  });
+
+  // Handle invoice form submission
   document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-
     const form = e.target;
+
     const payload = {
       clientName: form.clientName.value,
       clientEmail: form.clientEmail.value,
@@ -158,25 +162,60 @@ document.getElementById("downloadPdfBtn").addEventListener("click", async () => 
     const data = await res.json();
     if (res.ok) {
       alert("✅ Invoice saved successfully!");
-      window.print(); // Trigger browser print
+      window.print(); // Optional: for physical print
       form.reset();
+      updateInvoiceTotals(); // Reset total
     } else {
       alert("❌ Error: " + data.error);
     }
   });
 
-  // ➕ Add more product rows dynamically
+  // ➕ Add product row
   document.getElementById("addProductBtn").addEventListener("click", () => {
     const container = document.getElementById("productContainer");
     const row = document.createElement("div");
     row.className = "product-row";
     row.innerHTML = `
       <input type="text" class="product-name" placeholder="Product Name" required />
-      <input type="number" class="product-price" placeholder="Price" required />
+      <input type="number" class="product-price" placeholder="Price ₹" required />
     `;
     container.appendChild(row);
   });
+
+  // 🔢 Live GST + Total calculator
+  function updateInvoiceTotals() {
+    const prices = document.querySelectorAll(".product-price");
+    let subtotal = 0;
+    prices.forEach(input => {
+      const val = parseFloat(input.value);
+      if (!isNaN(val)) subtotal += val;
+    });
+    const gst = subtotal * 0.18;
+    const total = subtotal + gst;
+
+    document.getElementById("totalSummary").innerHTML = `
+      Subtotal: ₹${subtotal.toFixed(2)}<br>
+      GST (18%): ₹${gst.toFixed(2)}<br>
+      <strong>Total: ₹${total.toFixed(2)}</strong>
+    `;
+  }
+
+  // Watch changes
+  document.addEventListener("input", function (e) {
+    if (e.target.classList.contains("product-price")) {
+      updateInvoiceTotals();
+    }
+  });
+
+  // Update after adding product row
+  document.getElementById("addProductBtn").addEventListener("click", () => {
+    setTimeout(updateInvoiceTotals, 100);
+  });
+
+  // Initial render
+  window.addEventListener("DOMContentLoaded", updateInvoiceTotals);
 }
+
 
 // =============================
 // 📜 Invoice: History Page
