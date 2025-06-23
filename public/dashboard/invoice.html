@@ -7,7 +7,8 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #0f2027;
+      background: #0f2027 url('/assets/watermark.png') no-repeat center center fixed;
+      background-size: 600px;
       color: #fff;
       padding: 2rem;
     }
@@ -33,9 +34,11 @@
     .container {
       max-width: 900px;
       margin: auto;
-      background: #1c1e24;
+      background: rgba(28, 30, 36, 0.95);
       padding: 2rem;
       border-radius: 12px;
+      box-shadow: 0 0 15px #00ffe04d;
+      backdrop-filter: blur(8px);
     }
     label {
       display: block;
@@ -90,6 +93,14 @@
     .history-card p {
       margin: 0.3rem 0;
     }
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #aaa;
+      border-top: 1px solid #333;
+      padding-top: 1rem;
+    }
     @media print {
       .add-btn, .print-btn, .toggle-btn, .save-btn, .pdf-btn {
         display: none;
@@ -120,7 +131,6 @@
 
     <button class="toggle-btn" onclick="toggleSection()">🧮 Switch to History</button>
 
-    <!-- 🚀 Create Invoice -->
     <div class="invoice-section">
       <label>Client Company Name</label>
       <input type="text" id="clientName" placeholder="Enter client company name" />
@@ -160,10 +170,15 @@
       <button class="pdf-btn" id="downloadPdfBtn">📄 Download PDF</button>
     </div>
 
-    <!-- 📜 Invoice History -->
     <div class="history-section" id="history">
       <h2>📜 Invoice History</h2>
       <div id="historyList">Loading...</div>
+    </div>
+
+    <div class="footer">
+      CIN: U12345KA2024PTC123456<br>
+      This invoice is system-generated and does not require a signature.<br>
+      Thank you for doing business with <strong>AstraNetix Solutions</strong>.
     </div>
   </div>
 
