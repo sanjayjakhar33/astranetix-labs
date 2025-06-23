@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const AdminUser = require('../models/AdminUser');
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
+// ✅ Register Admin (Only once)
 router.post('/register', async (req, res) => {
   const { username, email, phone, password } = req.body;
 
@@ -14,7 +12,6 @@ router.post('/register', async (req, res) => {
     const existing = await AdminUser.findOne({ email });
     if (existing) return res.status(400).json({ error: 'Admin already exists' });
 
-    // ❌ Prevent if at least 1 admin already exists
     const count = await AdminUser.countDocuments();
     if (count > 0) return res.status(403).json({ error: 'Admin creation locked' });
 
@@ -29,6 +26,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// ✅ Login and Start Session
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await AdminUser.findOne({ email });
@@ -37,10 +35,23 @@ router.post('/login', async (req, res) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
 
-  const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token });
+  // 🔐 Create session
+  req.session.isAdminAuthenticated = true;
+  req.session.adminEmail = email;
+
+  res.json({ message: 'Login successful' });
 });
 
+// ✅ Logout and Destroy Session
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) return res.status(500).json({ error: 'Logout failed' });
+    res.clearCookie('connect.sid');
+    res.json({ message: 'Logout successful' });
+  });
+});
+
+// 🔁 Forgot Password via OTP
 router.post('/forgot', async (req, res) => {
   const { email } = req.body;
   const user = await AdminUser.findOne({ email });
@@ -68,6 +79,7 @@ router.post('/forgot', async (req, res) => {
   res.json({ message: 'OTP sent to email' });
 });
 
+// 🔁 Reset Password via OTP
 router.post('/reset', async (req, res) => {
   const { email, otp, newPassword } = req.body;
   const user = await AdminUser.findOne({ email, otp });
