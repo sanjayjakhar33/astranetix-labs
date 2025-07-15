@@ -1,14 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const Invoice = require('../models/Invoice');
+const db = require('../db');
 
 // Save new invoice
 router.post('/generate', async (req, res) => {
+  const {
+    client_name,
+    client_email,
+    items,
+    total_amount,
+    gst,
+    invoice_date
+  } = req.body;
+
   try {
-    const invoice = new Invoice(req.body);
-    await invoice.save();
-    res.status(201).json({ message: 'Invoice saved' });
+    const query = `
+      INSERT INTO invoices (client_name, client_email, items, total_amount, gst, invoice_date)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    const [result] = await db.execute(query, [
+      client_name,
+      client_email,
+      JSON.stringify(items),
+      total_amount,
+      gst,
+      invoice_date,
+    ]);
+
+    res.status(201).json({ message: 'Invoice saved', invoiceId: result.insertId });
   } catch (err) {
+    console.error('Error saving invoice:', err);
     res.status(500).json({ error: 'Error saving invoice' });
   }
 });
@@ -16,11 +38,13 @@ router.post('/generate', async (req, res) => {
 // Fetch all invoices
 router.get('/history', async (req, res) => {
   try {
-    const invoices = await Invoice.find().sort({ createdAt: -1 });
-    res.json(invoices);
+    const [rows] = await db.execute('SELECT * FROM invoices ORDER BY created_at DESC');
+    res.json(rows);
   } catch (err) {
+    console.error('Error fetching invoices:', err);
     res.status(500).json({ error: 'Error fetching invoices' });
   }
 });
 
 module.exports = router;
+

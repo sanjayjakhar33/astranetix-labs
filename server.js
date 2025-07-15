@@ -52,13 +52,18 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/invoice', invoiceRoutes);
 
-// --- 🔗 MongoDB Connection ---
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('✅ MongoDB connected'))
-.catch(err => console.error('❌ MongoDB error:', err));
+const db = require('./db');
+
+(async () => {
+  try {
+    const connection = await db.getConnection();
+    console.log('✅ Connected to MySQL Database');
+    connection.release();
+  } catch (err) {
+    console.error('❌ MySQL connection error:', err);
+  }
+})();
+
 
 // --- 🚀 Start Server ---
 app.listen(PORT, () => {

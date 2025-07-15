@@ -1,26 +1,32 @@
+// routes/contact.js
 
 const express = require('express');
 const router = express.Router();
-const Contact = require('../models/Contact');
+const db = require('../db');
 
-router.post('/', async (req, res) => {
+// ✅ Submit Contact Form
+router.post('/contact', async (req, res) => {
+  const { name, email, message } = req.body;
   try {
-    const { name, email, message } = req.body;
-    const newEntry = new Contact({ name, email, message });
-    await newEntry.save();
-    res.status(200).json({ message: 'Form submitted successfully!' });
+    await db.query(
+      'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
+      [name, email, message]
+    );
+    res.status(200).json({ msg: 'Message received successfully!' });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to submit form.' });
+    res.status(500).json({ msg: 'Error saving message', error: err });
   }
 });
 
-router.get('/all', async (req, res) => {
+// ✅ Get All Messages (Admin only)
+router.get('/messages', async (req, res) => {
   try {
-    const entries = await Contact.find().sort({ submittedAt: -1 });
-    res.status(200).json(entries);
+    const [rows] = await db.query('SELECT * FROM contacts ORDER BY created_at DESC');
+    res.json(rows);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch messages.' });
+    res.status(500).json({ msg: 'Error fetching messages', error: err });
   }
 });
 
 module.exports = router;
+
