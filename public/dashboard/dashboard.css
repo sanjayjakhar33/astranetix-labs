@@ -1,4 +1,4 @@
-/* Updated dashboard.css for AstraNetix Admin Dashboard (3D Ultra Rich Design) */
+/* Enhanced dashboard.css for AstraNetix Admin Dashboard (3D Ultra Rich Design) */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
@@ -8,6 +8,7 @@ body {
   color: #fff;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Layout */
@@ -41,9 +42,10 @@ body {
   color: #00ffe0;
   text-align: center;
   margin-bottom: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
 }
 
 .sidebar a {
@@ -61,7 +63,7 @@ body {
   background: rgba(0, 255, 255, 0.2);
   color: #fff;
   transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
 }
 
 .logout-btn {
@@ -92,14 +94,14 @@ body {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: #00ffe0;
-  text-shadow: 0px 4px 4px rgba(0, 255, 255, 0.1);
+  text-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
   font-weight: 700;
 }
 
 /* Stat Cards */
 .stats-grid {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
 }
@@ -131,7 +133,7 @@ body {
 .stat-value {
   font-size: 2rem;
   font-weight: 700;
-  text-shadow: 0px 4px 10px rgba(0, 255, 255, 0.2);
+  text-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
 }
 
 /* Cards */
@@ -150,10 +152,10 @@ body {
 .entry {
   background: #1c1e24;
   border: 1px solid rgba(0, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1.5rem;
   transition: 0.3s;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -216,7 +218,7 @@ body {
 .download-btn {
   background-color: #00ffe0;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 25px;
   color: #000;
   font-weight: bold;
   border-radius: 8px;
