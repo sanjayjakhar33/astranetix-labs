@@ -9,4 +9,17 @@ const db = mysql.createPool({
   database: process.env.DB_NAME,       // ✅ matches .env
 });
 
+// Test connection to verify
+async function testConnection() {
+  try {
+    const connection = await db.getConnection();
+    console.log("✅ Successfully connected to MySQL database");
+    connection.release();
+  } catch (err) {
+    console.error("❌ MySQL connection error:", err);
+  }
+}
+
+testConnection();
+
 module.exports = db;
