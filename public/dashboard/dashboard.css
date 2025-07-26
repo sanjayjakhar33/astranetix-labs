@@ -1,4 +1,4 @@
-/* Updated dashboard.css for AstraNetix Admin Dashboard */
+/* Updated dashboard.css for AstraNetix Admin Dashboard (3D Ultra Rich Design) */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
@@ -14,6 +14,7 @@ body {
 .dashboard-container {
   display: flex;
   min-height: 100vh;
+  transition: all 0.3s ease-in-out;
 }
 
 /* Sidebar */
@@ -26,7 +27,14 @@ body {
   gap: 1.5rem;
   position: fixed;
   height: 100%;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+  border-right: 3px solid #00ffe0;
+  transform: translateX(-250px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.active {
+  transform: translateX(0);
 }
 
 .sidebar h2 {
@@ -34,13 +42,15 @@ body {
   text-align: center;
   margin-bottom: 2rem;
   font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .sidebar a {
   color: #ccc;
   text-decoration: none;
   padding: 0.75rem 1rem;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: background 0.2s ease, color 0.2s ease;
   display: flex;
   align-items: center;
@@ -48,19 +58,22 @@ body {
 }
 
 .sidebar a:hover, .sidebar a.active {
-  background: rgba(0, 255, 255, 0.1);
+  background: rgba(0, 255, 255, 0.2);
   color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
 }
 
 .logout-btn {
   background-color: #00ffe0;
   border: none;
-  padding: 10px;
+  padding: 12px 18px;
   border-radius: 8px;
   color: #0e1015;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: auto;
 }
 
 .logout-btn:hover {
@@ -72,14 +85,18 @@ body {
   margin-left: 250px;
   flex: 1;
   padding: 2rem;
+  transition: margin-left 0.3s ease-in-out;
 }
 
 .main-content h1 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: #00ffe0;
+  text-shadow: 0px 4px 4px rgba(0, 255, 255, 0.1);
+  font-weight: 700;
 }
 
+/* Stat Cards */
 .stats-grid {
   display: flex;
   gap: 1rem;
@@ -91,16 +108,18 @@ body {
   flex: 1;
   min-width: 250px;
   background: #1c1e24;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 12px;
   border: 1px solid rgba(0, 255, 255, 0.2);
   transition: 0.3s;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+  transform: scale(1);
 }
 
 .stat-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
 }
 
 .stat-title {
@@ -110,8 +129,9 @@ body {
 }
 
 .stat-value {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
+  text-shadow: 0px 4px 10px rgba(0, 255, 255, 0.2);
 }
 
 /* Cards */
@@ -129,17 +149,18 @@ body {
 
 .entry {
   background: #1c1e24;
-  border: 1px solid rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
   border-radius: 10px;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem;
   transition: 0.3s;
-  box-shadow: 0 0 8px rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
   animation: fadeIn 0.5s ease-in-out;
 }
 
 .entry:hover {
-  background: rgba(255, 255, 255, 0.03);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
 }
 
 .entry p {
@@ -166,6 +187,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
@@ -177,6 +199,7 @@ body {
     position: relative;
     flex-direction: row;
     justify-content: space-around;
+    box-shadow: none;
   }
 
   .main-content {
@@ -187,6 +210,9 @@ body {
   .stats-grid {
     flex-direction: column;
   }
+}
+
+/* Button Styles for Download */
 .download-btn {
   background-color: #00ffe0;
   border: none;
@@ -201,6 +227,4 @@ body {
 
 .download-btn:hover {
   background-color: #00bfa5;
-}
-
 }
