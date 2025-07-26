@@ -106,6 +106,7 @@ if (window.location.pathname.includes("add-admin.html")) {
     msg.style.color = res.ok ? "lime" : "red";
   });
 }
+
 // =============================
 // 🧾 Invoice: Generate Invoice
 // =============================
@@ -215,7 +216,6 @@ if (window.location.pathname.includes("invoice.html")) {
   window.addEventListener("DOMContentLoaded", updateInvoiceTotals);
 }
 
-
 // =============================
 // 📜 Invoice: History Page
 // =============================
@@ -256,4 +256,3 @@ if (window.location.pathname.includes("invoice-history.html")) {
       document.getElementById("historyList").innerHTML = "<p style='color:red;'>Error loading invoices</p>";
     });
 }
-
