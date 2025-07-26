@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 });
 
 // ✅ Get All Messages (Admin only)
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
   try {
     // Fetch all contact messages from the database
     const [rows] = await db.query('SELECT * FROM contacts ORDER BY created_at DESC');
