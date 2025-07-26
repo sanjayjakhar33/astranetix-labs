@@ -1,12 +1,11 @@
 const express = require('express');
-const session = require('express-session');
 const path = require('path');
+const session = require('express-session');
 require('dotenv').config();
-
-// Importing routes
 const contactRoutes = require('./routes/contact');
 const authRoutes = require('./routes/auth');
 const invoiceRoutes = require('./routes/invoice');
+const db = require('./db');  // mysql2/promise connection
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,23 +25,6 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --- 🔐 Auth Middleware for /dashboard/*.html ---
-app.use('/dashboard', (req, res, next) => {
-  const allowedPublicFiles = ['/login.html', '/forgot.html', '/reset.html'];
-  const isPublic = allowedPublicFiles.some(file => req.path.endsWith(file));
-
-  if (req.session && req.session.isAdminAuthenticated) {
-    return next(); // ✅ Logged in
-  }
-
-  if (isPublic) {
-    return next(); // ✅ Allow login, forgot, reset pages
-  }
-
-  // ❌ Block access to protected dashboard files
-  return res.redirect('/dashboard/login.html');
-});
-
 // --- 🌍 Static files ---
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/dashboard', express.static(path.join(__dirname, 'dashboard')));
@@ -52,13 +34,12 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/invoice', invoiceRoutes);
 
-// --- 🌐 Sequelize - MySQL Connection Setup ---
-const sequelize = require('./db'); // Sequelize instance
-
+// --- ✅ MySQL Connection check ---
 (async () => {
   try {
-    await sequelize.authenticate(); // Sequelize check connection
+    const connection = await db.getConnection();  // Using mysql2/promise connection
     console.log('✅ Connected to MySQL Database');
+    connection.release();
   } catch (err) {
     console.error('❌ MySQL connection error:', err);
   }
