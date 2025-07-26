@@ -1,37 +1,27 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../db');
+// models/Invoice.js
+const db = require('../db');  // MySQL connection from db.js
 
-const Invoice = sequelize.define('Invoice', {
-  clientName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  clientCompany: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  items: {
-    type: DataTypes.JSON,
-    allowNull: false
-  },
-  total: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  gst: {
-    type: DataTypes.FLOAT,
-    allowNull: true
-  },
-  grandTotal: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+// Function to create a new invoice
+async function createInvoice(clientName, clientCompany, items, total, gst, grandTotal) {
+  try {
+    const [result] = await db.execute(
+      'INSERT INTO invoices (clientName, clientCompany, items, total, gst, grandTotal) VALUES (?, ?, ?, ?, ?, ?)', 
+      [clientName, clientCompany, JSON.stringify(items), total, gst, grandTotal]
+    );
+    return result;
+  } catch (err) {
+    throw new Error('Error creating invoice');
   }
-}, {
-  timestamps: true
-});
+}
 
-module.exports = Invoice;
+// Function to fetch all invoices (for admin)
+async function getAllInvoices() {
+  try {
+    const [rows] = await db.execute('SELECT * FROM invoices ORDER BY created_at DESC');
+    return rows;
+  } catch (err) {
+    throw new Error('Error fetching invoices');
+  }
+}
+
+module.exports = { createInvoice, getAllInvoices };
