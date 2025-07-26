@@ -1,9 +1,9 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const session = require('express-session');
 const path = require('path');
 require('dotenv').config();
 
+// Importing routes
 const contactRoutes = require('./routes/contact');
 const authRoutes = require('./routes/auth');
 const invoiceRoutes = require('./routes/invoice');
@@ -52,18 +52,17 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/invoice', invoiceRoutes);
 
-const db = require('./db');
+// --- 🌐 Sequelize - MySQL Connection Setup ---
+const sequelize = require('./db'); // Sequelize instance
 
 (async () => {
   try {
-    const connection = await db.getConnection();
+    await sequelize.authenticate(); // Sequelize check connection
     console.log('✅ Connected to MySQL Database');
-    connection.release();
   } catch (err) {
     console.error('❌ MySQL connection error:', err);
   }
 })();
-
 
 // --- 🚀 Start Server ---
 app.listen(PORT, () => {
