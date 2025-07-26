@@ -1,35 +1,27 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../db');
+// models/AdminUser.js
+const db = require('../db');  // MySQL connection from db.js
 
-const AdminUser = sequelize.define('AdminUser', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  otp: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  otpExpires: {
-    type: DataTypes.DATE,
-    allowNull: true
+// Function to create a new AdminUser
+async function createAdminUser(email, password) {
+  try {
+    const [result] = await db.execute(
+      'INSERT INTO admins (email, password) VALUES (?, ?)', 
+      [email, password]
+    );
+    return result;
+  } catch (err) {
+    throw new Error('Error creating admin user');
   }
-}, {
-  timestamps: true
-});
+}
 
-module.exports = AdminUser;
+// Function to fetch an AdminUser by email
+async function getAdminUserByEmail(email) {
+  try {
+    const [rows] = await db.execute('SELECT * FROM admins WHERE email = ?', [email]);
+    return rows;
+  } catch (err) {
+    throw new Error('Error fetching admin user');
+  }
+}
+
+module.exports = { createAdminUser, getAdminUserByEmail };
